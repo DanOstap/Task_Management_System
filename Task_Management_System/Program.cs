@@ -42,9 +42,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateIssuerSigningKey = true,
     };
 });
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy =>
+        {
+            policy.WithOrigins("*") 
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 app.UseAuthorization();
-
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
