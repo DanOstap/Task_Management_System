@@ -7,11 +7,11 @@ public interface IUsersService
 {
     public Task<Users> CreateUsers(Users dto);
     public Task<Users?> FindUsersOneByEmail(string email);
-    public Task<Users?> FindOneByActivationLink(string activationLink);
-    public Task<List<Users>?> FindAll();
-    public Task<Users?> FindOneById(int id);
-    public Task<Users?> Update(int id, Users model);
-    public Task<Users?> Remove(int id);
+    public Task<Users?> FindOneUserByActivationLink(string activationLink);
+    public Task<List<Users>?> FindAllUsers();
+    public Task<Users?> FindOneUserById(int id);
+    public Task<Users?> UpdateUser(int id, Users model);
+    public Task<Users?> RemoveUser(int id);
 }
 public class UserService : IUsersService
 {
@@ -38,21 +38,21 @@ public class UserService : IUsersService
         return user;
     }
 
-    async public Task<List<Users>?> FindAll()
+    async public Task<List<Users>?> FindAllUsers()
     {
         var users = context.Users.ToList();
         if(users == null) return null;
         return users;
     }
 
-    async public Task<Users?> FindOneById(int id)
+    async public Task<Users?> FindOneUserById(int id)
     {
         var user = await context.Users.FindAsync(id);
         if(user == null) return null;
         return user;
     }
 
-    async public Task<Users?> FindOneByActivationLink(string activationLink)
+    async public Task<Users?> FindOneUserByActivationLink(string activationLink)
     {
         var user = await context.Users.FirstOrDefaultAsync(x => x.User_Activation_Link == activationLink);
         if(user == null) return null;
@@ -60,7 +60,7 @@ public class UserService : IUsersService
     }
 
 
-    async public Task<Users?> Update(int id, Users model)
+    async public Task<Users?> UpdateUser(int id, Users model)
     {
         var user = await context.Users.FindAsync(id);
         if(user == null) return null;
@@ -84,7 +84,7 @@ public class UserService : IUsersService
         return user;
     }
 
-    public Task<Users?> Remove(int id)
+    public Task<Users?> RemoveUser(int id)
     {
         var user = context.Users.Find(id);
         if(user == null) return null;
