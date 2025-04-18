@@ -14,8 +14,12 @@ public class DataBaseService : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<Users>()
-                                    .HasMany( e => e.Tasks )
-                                    .WithMany( e => e.Users );
+        modelBuilder.Entity<Users>(entiy =>
+        {
+            entiy.HasKey(e => e.User_Id);
+            entiy.HasMany(e => e.Tasks)
+                 .WithMany(e => e.Users);
+
+        });
     }
 }

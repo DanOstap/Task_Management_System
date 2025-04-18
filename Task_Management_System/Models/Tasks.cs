@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Task_Management_System.Models;
 
 [Table("Tasks")]
 public class Tasks
 {
+    [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Task_Id { get; set; }
     public string Task_Name { get; set; }
