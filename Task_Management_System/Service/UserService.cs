@@ -5,7 +5,7 @@ using static Task_Management_System.Tools.Tools;
 namespace Task_Management_System.Service;
 public interface IUsersService
 {
-    public Task<Users> CreateUsers(Users dto);
+    public Task<Users> CreateUsers(Users mpdel);
     public Task<Users?> FindUsersOneByEmail(string email);
     public Task<Users?> FindOneUserByActivationLink(string activationLink);
     public Task<List<Users>?> FindAllUsers();
@@ -71,14 +71,9 @@ public class UserService : IUsersService
         }
         catch (DbUpdateConcurrencyException)
         {
-            if ((context.Users?.Any( e => e.User_Id == id)).GetValueOrDefault())
-            {
-                return null;
-            }
-            else
-            {
-                throw;
-            }
+            if ((context.Users?.Any( e => e.User_Id == id)).GetValueOrDefault()) return null;
+            throw;
+            
         }
 
         return user;
