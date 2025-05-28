@@ -5,10 +5,10 @@ using static Task_Management_System.Tools.Tools;
 namespace Task_Management_System.Service;
 public interface IUsersService
 {
-    public Task<Users> CreateUsers(Users mpdel);
-    public Task<Users?> FindUsersOneByEmail(string email);
+    public Task<Users> CreateUsers(Users mpdel); 
+    public Task<Users?> FindUsersOneByEmail(string email); 
     public Task<Users?> FindOneUserByActivationLink(string activationLink);
-    public Task<List<Users>?> FindAllUsers();
+    public Task<List<Users>?> FindAllUsers(); 
     public Task<Users?> FindOneUserById(int id);
     public Task<Users?> UpdateUser(int id, Users model);
     public Task<Users?> RemoveUser(int id);
