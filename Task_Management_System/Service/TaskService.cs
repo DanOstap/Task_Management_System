@@ -8,7 +8,7 @@ public interface ITaskService
 {
     public Task<Tasks> CreateTask(Tasks model);
     public Task<Tasks> UpdateTask(int id,Tasks model);
-    public Task<Tasks> DeleteTask(Tasks model);
+    public Task<Tasks> DeleteTask(int model);
     public Task<Tasks> GetTaskById(int id);
     public Task<List<Tasks>> GetAllTasks();
     public Task<List<Tasks>> GetTasksByUser(int userId);
@@ -93,9 +93,8 @@ public class TaskService
     async public Task<Tasks> AddUserToTask(int userId, int taskId)
     {
         var user = await context.Users.FindAsync(userId);
-        if (user == null) return null;
         var task = await context.Tasks.FindAsync(taskId);
-        if (task == null) return null;
+        if (task == null && user == null) return null;
         task.Users.Add(user);
         return task;
     }
